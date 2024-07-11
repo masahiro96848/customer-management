@@ -32,3 +32,5 @@ group :development, :test do
   gem "rubocop-rails"
   gem "rubocop-rspec"
 end
+
+gem "graphql", "~> 2.3"

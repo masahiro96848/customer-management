@@ -67,6 +67,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
+    base64 (0.2.0)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.3.0)
@@ -81,6 +82,8 @@ GEM
       i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphql (2.3.7)
+      base64
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     json (2.7.2)
@@ -223,6 +226,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  graphql (~> 2.3)
   pg (~> 1.1)
   pry-byebug
   pry-doc
