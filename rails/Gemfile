@@ -32,6 +32,9 @@ group :development, :test do
   gem "rubocop-faker"
   gem "rubocop-rails"
   gem "rubocop-rspec"
+
+  gem 'graphiql-rails'
+  gem 'sass-rails'
 end
 
 gem "graphql", "~> 2.3"
