@@ -9,7 +9,7 @@
 5.times do |i|
   User.create(
     name: "サンプルテスト#{i + 1}",
-    email: "sample#{sprintf('%02d', i + 1)}@test.com",
-    password: BCrypt::Password.create('password')
+    email: "sample#{"%02d" % (i + 1)}@test.com",
+    password: BCrypt::Password.create("password"),
   )
 end

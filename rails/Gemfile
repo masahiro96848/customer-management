@@ -3,9 +3,8 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
+gem "bcrypt", "~> 3.1.7"
 gem "bootsnap", require: false
-gem 'bcrypt', '~> 3.1.7'
-
 
 # Postgresql
 gem "pg", "~> 1.1"
@@ -14,8 +13,8 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 
 # rails本体（標準gem）
-gem "rails", "~> 7.0.4"
 gem "rack-cors"
+gem "rails", "~> 7.0.4"
 
 # タイムゾーン情報を提供する（標準gem）
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
@@ -34,8 +33,8 @@ group :development, :test do
   gem "rubocop-rails"
   gem "rubocop-rspec"
 
-  gem 'graphiql-rails'
-  gem 'sass-rails'
+  gem "graphiql-rails"
+  gem "sass-rails"
 end
 
 gem "graphql", "~> 2.3"
