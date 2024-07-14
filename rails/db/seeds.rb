@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+5.times do |i|
+  User.create(
+    name: "サンプルテスト#{i + 1}",
+    email: "sample#{"%02d" % (i + 1)}@test.com",
+    password: BCrypt::Password.create("password"),
+  )
+end
