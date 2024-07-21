@@ -1,7 +1,5 @@
 module Mutations
   class Signin < Mutations::BaseMutation
-    # include Concerns::SessionCookie
-
     argument :email, String, required: true
     argument :password, String, required: true
 
@@ -11,7 +9,6 @@ module Mutations
     def resolve(email:, password:)
       user = User.find_by(email:)
       if user && user.authenticate(password)
-        # create_session_cookie(user)
         {
           user:,
           errors: [],
