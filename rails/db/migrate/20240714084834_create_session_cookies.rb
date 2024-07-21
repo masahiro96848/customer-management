@@ -6,6 +6,7 @@ class CreateSessionCookies < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_index :session_cookies, :token, unique: true
     add_index :session_cookies, [:user_id, :created_at]
   end
 end

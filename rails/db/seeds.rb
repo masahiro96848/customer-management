@@ -10,6 +10,6 @@
   User.create(
     name: "サンプルテスト#{i + 1}",
     email: "sample#{"%02d" % (i + 1)}@test.com",
-    password: BCrypt::Password.create("password"),
+    password: "password",
   )
 end

@@ -8,5 +8,8 @@ module Types
     def test_field
       "Hello World"
     end
+
+    field :signin, mutation: Mutations::Signin
+    field :signup, mutation: Mutations::Signup
   end
 end
