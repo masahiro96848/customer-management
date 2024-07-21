@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
-  # If accessing from outside this domain, nullify the session
-  # This allows for outside API access while preventing CSRF attacks,
-  # but you'll have to authenticate your user separately
-  # protect_from_forgery with: :null_session
-
   def execute
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
+      # cookies: cookies
       # current_user: current_user,
+      # current_session_cookie: current_session_cookie
     }
     result = MyappSchema.execute(query, variables:, context:, operation_name:)
     render json: result
@@ -49,5 +45,24 @@ class GraphqlController < ApplicationController
       logger.error e.backtrace.join("\n")
 
       render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
+    end
+
+    def session_token
+      cookies[SessionCookie::TOKEN_COOKIE_NAME]
+    end
+
+    def current_session_cookie
+      return nil unless session_token
+
+      @session_cookie ||= SessionCookie.find_by(token: session_token)
+      if @session_cookie && !@session_cookie.expired?
+        @session_cookie
+      else
+        nil
+      end
+    end
+
+    def current_user
+      current_session_cookie&.user
     end
 end

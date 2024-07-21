@@ -28,8 +28,8 @@ module Types
       "Hello World!"
     end
 
-    field :user, Types::UserType, null: false do 
-      argument :id, ID, required: true 
+    field :user, Types::UserType, null: false do
+      argument :id, ID, required: true
     end
     def user(id:)
       User.find(id)
