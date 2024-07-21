@@ -10,6 +10,6 @@ module Types
     end
 
     field :signin, mutation: Mutations::Signin
-    # field :signup, mutation: Mutations::Signup
+    field :signup, mutation: Mutations::Signup
   end
 end
