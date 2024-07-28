@@ -1,11 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
 
-  TOKEN_COOKIE_NAME = "dev_session_token".freeze
-
   before_create :generate_token
 
   validates :email, presence: true, uniqueness: true
+
+  TOKEN_COOKIE_NAME = "dev_session_token".freeze
 
   def self.authenticate_with_credentials(email, password)
     user = find_by(email:)
@@ -27,7 +27,7 @@ class User < ApplicationRecord
     context[:response].set_cookie(
       TOKEN_COOKIE_NAME,
       {
-        value: token,
+        value: self.token,
         expires: 1.year.from_now,
         http_only: true,
         secure: Rails.env.production?,

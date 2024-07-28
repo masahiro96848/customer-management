@@ -39,5 +39,16 @@ module Types
     def users
       User.all
     end
+
+    field :viewer, Types::UserType, null: false
+    def viewer
+      current_user
+    end
+
+    private
+
+      def current_user
+        context[:current_user]
+      end
   end
 end
