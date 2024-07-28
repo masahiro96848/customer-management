@@ -225,6 +225,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    secure_headers (6.5.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -265,6 +266,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   sass-rails
+  secure_headers
   tzinfo-data
 
 RUBY VERSION

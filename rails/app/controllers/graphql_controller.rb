@@ -7,9 +7,8 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       response:,
-      # cookies: cookies
-      # current_user: current_user,
-      # current_session_cookie: current_session_cookie
+      current_user:,
+      current_session_cookie:,
     }
     result = MyappSchema.execute(query, variables:, context:, operation_name:)
     render json: result
@@ -48,22 +47,24 @@ class GraphqlController < ApplicationController
       render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
     end
 
+    def authenticate_user!
+      # 任意の認証方法を実装
+      unless current_user
+        render json: { errors: [{ message: "Unauthorized" }] }, status: :unauthorized
+      end
+    end
+
     def session_token
-      cookies[SessionCookie::TOKEN_COOKIE_NAME]
+      cookies[User::TOKEN_COOKIE_NAME]
     end
 
     def current_session_cookie
       return nil unless session_token
 
-      @session_cookie ||= SessionCookie.find_by(token: session_token)
-      if @session_cookie && !@session_cookie.expired?
-        @session_cookie
-      else
-        nil
-      end
+      @current_session_cookie ||= User.find_by(token: session_token)
     end
 
     def current_user
-      current_session_cookie&.user
+      current_session_cookie
     end
 end
