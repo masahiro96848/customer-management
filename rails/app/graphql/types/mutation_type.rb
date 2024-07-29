@@ -11,5 +11,6 @@ module Types
 
     field :signin, mutation: Mutations::Signin
     field :signup, mutation: Mutations::Signup
+    field :signout, mutation: Mutations::Signout
   end
 end

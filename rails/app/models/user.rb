@@ -34,4 +34,9 @@ class User < ApplicationRecord
       },
     )
   end
+
+  def delete_session_cookie!(context)
+    context[:response].delete_cookie(TOKEN_COOKIE_NAME)
+    update!(token: nil)
+  end
 end
