@@ -10,7 +10,8 @@ module Mutations
       user, errors = User.authenticate_with_credentials(email, password)
       return { user: nil, errors: } if user.nil?
 
-      user.generate_token(context)
+      user.reset_token!
+      user.create_token_cookie(context)
 
       {
         user:,

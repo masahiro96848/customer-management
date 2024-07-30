@@ -7,24 +7,15 @@ module Mutations
     field :user, Types::UserType, null: true
     field :errors, [String], null: false
 
-    def resolve(email:, password:, password_confirmation:)
-      user = User.new(email:, password:, password_confirmation:)
-      if user.save
-        {
-          user:,
-          errors: [],
-        }
+    def resolve(params)
+      user = User.create(params)
+
+      if user.persisted?
+        user.create_token_cookie(context)
+        { user:, errors: [] }
       else
-        {
-          user: nil,
-          errors: user.errors.full_messages,
-        }
+        { user: nil, errors: user.errors.full_messages }
       end
-    rescue => e
-      {
-        user: nil,
-        errors: [e.message],
-      }
     end
   end
 end

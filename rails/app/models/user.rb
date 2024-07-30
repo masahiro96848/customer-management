@@ -17,13 +17,15 @@ class User < ApplicationRecord
   end
 
   def reset_token!
-    self.token = SecureRandom.alphanumeric(32) unless self.token
-    self.update!(token:)
+    self.token = SecureRandom.alphanumeric(32)
+    self.save!
   end
 
-  def generate_token(context)
-    token = SecureRandom.alphanumeric(32)
-    self.update!(token:)
+  def generate_token
+    self.token = SecureRandom.alphanumeric(32)
+  end
+
+  def create_token_cookie(context)
     context[:response].set_cookie(
       TOKEN_COOKIE_NAME,
       {
