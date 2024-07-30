@@ -7,7 +7,7 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(email:, password:)
-      user, errors = User.authenticate_with_credentials(email, password)
+      user, errors = User.signin_credentials(email, password)
       return { user: nil, errors: } if user.nil?
 
       user.reset_token!
