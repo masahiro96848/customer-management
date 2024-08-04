@@ -8,14 +8,16 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(params)
-      user = User.create(params)
-
-      if user.persisted?
-        user.create_token_cookie(context)
-        { user:, errors: [] }
-      else
-        { user: nil, errors: user.errors.full_messages }
+      if User.exists?(email: params[:email])
+        return raise Errors.create(:email_has_already_been_taken)
       end
+
+      user = User.new(params)
+
+      raise Errors.create(:email_has_already_been_taken) unless user.save
+
+      user.create_token_cookie(context)
+      { user:, errors: [] }
     end
   end
 end
