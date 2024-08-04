@@ -9,11 +9,12 @@ class User < ApplicationRecord
 
   def self.signin_credentials(email, password)
     user = find_by(email:)
-    if user&.authenticate(password)
-      [user, []]
-    else
-      [nil, ["Invalid email or password"]]
+
+    unless user && user.authenticate(password)
+      raise Errors.create(:login_email_and_password_mismatch)
     end
+
+    user
   end
 
   def reset_token!
