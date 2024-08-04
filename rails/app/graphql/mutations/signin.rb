@@ -7,8 +7,11 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(email:, password:)
-      user, errors = User.authenticate_with_credentials(email, password)
-      return { user: nil, errors: } if user.nil?
+      user = User.signin_credentials(email, password)
+
+      if user.nil?
+        raise Errors.create(:login_email_and_password_mismatch)
+      end
 
       user.reset_token!
       user.create_token_cookie(context)
@@ -17,10 +20,11 @@ module Mutations
         user:,
         errors: [],
       }
-    rescue => e
+    rescue ActiveRecord::RecordNotFound
+      context[:response].status = 400
       {
         user: nil,
-        errors: [e.message],
+        errors: ["メールアドレスまたはパスワードが正しくありません。"],
       }
     end
   end

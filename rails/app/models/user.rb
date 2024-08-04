@@ -7,13 +7,14 @@ class User < ApplicationRecord
 
   TOKEN_COOKIE_NAME = "dev_session_token".freeze
 
-  def self.authenticate_with_credentials(email, password)
+  def self.signin_credentials(email, password)
     user = find_by(email:)
-    if user && user.authenticate(password)
-      [user, []]
-    else
-      [nil, ["Invalid email or password"]]
+
+    unless user && user.authenticate(password)
+      raise Errors.create(:login_email_and_password_mismatch)
     end
+
+    user
   end
 
   def reset_token!
