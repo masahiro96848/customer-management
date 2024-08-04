@@ -1,3 +1,4 @@
 ja:
   errors:
     login_email_and_password_mismatch: メールアドレスまたはパスワードが正しくありません。
+    email_has_already_been_taken: メールアドレスはすでに使われています。
