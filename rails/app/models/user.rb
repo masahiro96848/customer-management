@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
 
+  has_many :posts, dependent: :destroy
+
   TOKEN_COOKIE_NAME = "dev_session_token".freeze
 
   def self.signin_credentials(email, password)
