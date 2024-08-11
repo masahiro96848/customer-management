@@ -79,7 +79,7 @@ GEM
     date (3.3.4)
     diff-lcs (1.5.1)
     erubi (1.13.0)
-    faker (3.4.1)
+    faker (3.4.2)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.0-aarch64-linux-gnu)
     globalid (1.2.1)
@@ -255,6 +255,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
+  faker (~> 3.4, >= 3.4.2)
   graphiql-rails
   graphql (~> 2.3)
   pg (~> 1.1)
