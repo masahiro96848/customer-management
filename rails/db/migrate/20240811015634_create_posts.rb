@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[7.0]
       t.string :body, null: true
       t.string :image_url, null: true
       t.string :is_published, default: '0'
-      t.integer :uid, unique: true
+      t.string :uid, unique: true
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
