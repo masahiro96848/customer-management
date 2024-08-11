@@ -40,15 +40,19 @@ module Types
       User.all
     end
 
-    field :viewer, Types::UserType, null: false
+    field :viewer, Types::UserType, null: true
     def viewer
-      current_user
+      context[:current_user]
     end
 
-    private
+    field :posts, [Types::PostType], null: false
+    def posts
+      Post.all
+    end
 
-      def current_user
-        context[:current_user]
-      end
+    # field :viewer, Types::UserType, null: true
+    #   def current_user
+    #     context[:current_user]
+    #   end
   end
 end
