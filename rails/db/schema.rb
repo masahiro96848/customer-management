@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_14_084834) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_11_015634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "body"
+    t.string "image_url"
+    t.string "is_published", default: "0"
+    t.string "uid"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_posts_on_uid", unique: true
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
 
   create_table "session_cookies", force: :cascade do |t|
     t.string "token"
@@ -35,5 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_14_084834) do
     t.index ["token"], name: "index_users_on_token", unique: true
   end
 
+  add_foreign_key "posts", "users"
   add_foreign_key "session_cookies", "users"
 end
