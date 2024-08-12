@@ -50,6 +50,17 @@ module Types
       Post.all
     end
 
+    field :post_detail, Types::PostType, null: false do
+      argument :uid, String, required: true
+      argument :name, String, required: true
+    end
+    def post_detail(uid:, name:)
+      user = User.find_by(name:)
+      return nil unless user
+
+      Post.find_by(uid:, user_id: user.id)
+    end
+
     field :my_posts, [Types::PostType], null: false
     def my_posts
       user = context[:current_user]
