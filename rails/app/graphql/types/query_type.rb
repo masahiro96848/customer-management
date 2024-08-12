@@ -50,9 +50,12 @@ module Types
       Post.all
     end
 
-    # field :viewer, Types::UserType, null: true
-    #   def current_user
-    #     context[:current_user]
-    #   end
+    field :my_posts, [Types::PostType], null: false
+    def my_posts
+      user = context[:current_user]
+      return [] unless user
+
+      Post.where(user_id: user.id)
+    end
   end
 end

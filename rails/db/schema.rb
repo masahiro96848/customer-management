@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_11_015634) do
     t.string "title", null: false
     t.string "body"
     t.string "image_url"
-    t.string "is_published", default: "0"
+    t.integer "is_published", default: 0
     t.string "uid"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
