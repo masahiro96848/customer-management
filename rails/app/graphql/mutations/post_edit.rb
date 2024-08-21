@@ -13,22 +13,25 @@ module Mutations
       user = context[:current_user]
       return { post: nil, errors: ["User not authenticated"] } unless user
 
-      # uidに基づいて既存のポストを取得
       post = user.posts.find_by(uid:)
 
       if post
-        # 既存のポストがある場合、更新
-        if post.update(title:, body:, image_url:, is_published:)
+        if image_url
+          image_data = decode_base64_image(image_url)
+          post.image_url = image_data if image_data
+        end
+
+        if post.update(title:, body:, is_published:)
           { post:, errors: [] }
         else
           { post: nil, errors: post.errors.full_messages }
         end
       else
-        # 既存のポストがない場合、新規作成
+        image_data = decode_base64_image(image_url) if image_url
         post = user.posts.new(
           title:,
           body:,
-          image_url:,
+          image_url: image_data,
           is_published:,
           uid:,
         )
@@ -39,6 +42,20 @@ module Mutations
           { post: nil, errors: post.errors.full_messages }
         end
       end
+    end
+
+    private
+
+    def decode_base64_image(image_url)
+      decoded_data = Base64.decode64(image_url)
+      filename = "image_#{SecureRandom.uuid}.png"
+      filepath = Rails.root.join('tmp', filename)
+
+      File.open(filepath, 'wb') do |f|
+        f.write(decoded_data)
+      end
+
+      File.open(filepath)
     end
   end
 end
