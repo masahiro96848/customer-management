@@ -15,16 +15,12 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # 保存先のディレクトリ
   def store_dir
-    ""
-  end
-
-  def filename
-    "dummy_image.jpg" if original_filename
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
   # アップロード可能なファイルの拡張子
   def extension_whitelist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # 画像のリサイズ設定

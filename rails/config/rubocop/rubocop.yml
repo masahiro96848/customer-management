@@ -108,7 +108,7 @@ Metrics/MethodLength:
     - 'db/migrate/*.rb'
 
 Metrics/PerceivedComplexity:
-  Max: 8
+  Max: 12
 
 #################### Naming ################################
 

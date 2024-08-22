@@ -46,16 +46,14 @@ module Mutations
 
     private
 
-    def decode_base64_image(image_url)
-      decoded_data = Base64.decode64(image_url)
-      filename = "image_#{SecureRandom.uuid}.png"
-      filepath = Rails.root.join('tmp', filename)
-
-      File.open(filepath, 'wb') do |f|
-        f.write(decoded_data)
+      def decode_base64_image(image_url)
+        decoded_data = Base64.decode64(image_url)
+        filename = "image_#{SecureRandom.uuid}.png"
+        filepath = Rails.root.join("public", "uploads", filename) # 'public/uploads'ディレクトリに保存
+        File.open(filepath, "wb") do |f|
+          f.write(decoded_data)
+        end
+        File.open(filepath)
       end
-
-      File.open(filepath)
-    end
   end
 end

@@ -15,5 +15,10 @@ module Types
     def published
       object.is_published == 0
     end
+
+    def image_url
+      # CarrierWaveで生成されたURLを返す
+      object.image_url.url if object.image_url.present?
+    end
   end
 end

@@ -18,9 +18,9 @@ gem "rack-cors"
 gem "rails", "~> 7.0.4"
 
 # 画像系
-gem 'carrierwave'
-gem 'carrierwave-base64' 
-gem 'mini_magick'
+gem "carrierwave"
+gem "carrierwave-base64"
+gem "mini_magick"
 
 # Japanese
 gem "rails-i18n"
