@@ -47,7 +47,8 @@ module Mutations
     private
 
       def decode_base64_image(image_url)
-        decoded_data = Base64.decode64(image_url)
+        body = image_url.split(",")[1]
+        decoded_data = Base64.decode64(body)
         filename = "image_#{SecureRandom.uuid}.png"
         filepath = Rails.root.join("public", "uploads", filename) # 'public/uploads'ディレクトリに保存
         File.open(filepath, "wb") do |f|
