@@ -22,7 +22,7 @@ user_ids = User.pluck(:id)
 30.times do
   title = ["TypeScriptのタイトル", "Ruby on Railsのタイトル", "Node.jsのタイトル"].sample
   body = Faker::Lorem.paragraph(sentence_count: 5)
-  image_url = Faker::LoremFlickr.image(search_terms: ["landscape"])
+  image_url = File.open("./app/assets/images/dummy_image.jpg")
   is_published = [1, 2].sample
   uid = SecureRandom.uuid
 
