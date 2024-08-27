@@ -17,8 +17,8 @@ module Mutations
 
       if post
         if image_url
-          image_data = decode_base64_image(image_url)
-          post.image_url = image_data if image_data
+          image_file = decode_base64_image(image_url)
+          post.image_url = image_file if image_file.present?
         end
 
         if post.update(title:, body:, is_published:)
@@ -27,11 +27,11 @@ module Mutations
           { post: nil, errors: post.errors.full_messages }
         end
       else
-        image_data = decode_base64_image(image_url) if image_url
+        image_file = decode_base64_image(image_url) if image_url
         post = user.posts.new(
           title:,
           body:,
-          image_url: image_data,
+          image_url: image_file,
           is_published:,
           uid:,
         )
@@ -47,7 +47,8 @@ module Mutations
     private
 
       def decode_base64_image(image_url)
-        decoded_data = Base64.decode64(image_url)
+        body = image_url.split(",")[1]
+        decoded_data = Base64.decode64(body)
         filename = "image_#{SecureRandom.uuid}.png"
         filepath = Rails.root.join("public", "uploads", filename) # 'public/uploads'ディレクトリに保存
         File.open(filepath, "wb") do |f|
