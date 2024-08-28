@@ -19,6 +19,7 @@ end
 user_ids = User.pluck(:id)
 
 # postを生成
+post_ids = []
 30.times do
   title = ["TypeScriptのタイトル", "Ruby on Railsのタイトル", "Node.jsのタイトル"].sample
   body = Faker::Lorem.paragraph(sentence_count: 5)
@@ -36,5 +37,29 @@ user_ids = User.pluck(:id)
   )
   if post.errors.any?
     Rails.logger.debug post.errors.full_messages
+  else
+    post_ids << post.id
+  end
+end
+
+# Favoriteデータを生成
+20.times do
+  user_id = user_ids.sample
+  post_id = post_ids.sample
+
+  # Favoriteがすでに存在するかチェック
+  if Favorite.exists?(user_id:, post_id:)
+    Rails.logger.debug "Favorite already exists for User ID: #{user_id}, Post ID: #{post_id}"
+  else
+    favorite = Favorite.create!(
+      user_id:,
+      post_id:,
+    )
+
+    if favorite.errors.any?
+      Rails.logger.debug favorite.errors.full_messages
+    else
+      Rails.logger.debug "Favorite created for User ID: #{user_id}, Post ID: #{post_id}"
+    end
   end
 end
