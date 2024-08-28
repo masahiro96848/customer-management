@@ -9,6 +9,7 @@ module Types
     field :is_published, Int
     field :uid, String, null: false
     field :user, Types::UserType, null: false
+    field :favorites_count, Int, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
@@ -19,6 +20,10 @@ module Types
     def image_url
       # CarrierWaveで生成されたURLを返す
       object.image_url.url if object.image_url.present?
+    end
+
+    def favorites_count
+      object.favorites.count
     end
   end
 end
