@@ -10,6 +10,7 @@ module Types
     field :uid, String, null: false
     field :user, Types::UserType, null: false
     field :favorites_count, Int, null: false
+    field :favorited, Boolean, null: false
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
@@ -24,6 +25,11 @@ module Types
 
     def favorites_count
       object.favorites.count
+    end
+
+    def favorited
+      current_user = context[:current_user]
+      Favorite.exists?(user_id: current_user.id, post_id: object.id)
     end
   end
 end

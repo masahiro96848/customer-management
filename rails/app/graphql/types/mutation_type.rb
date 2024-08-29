@@ -13,5 +13,7 @@ module Types
     field :signup, mutation: Mutations::Signup
     field :signout, mutation: Mutations::Signout
     field :post_edit, mutation: Mutations::PostEdit
+    field :add_favorite, mutation: Mutations::AddFavorite
+    field :remove_favorite, mutation: Mutations::RemoveFavorite
   end
 end
