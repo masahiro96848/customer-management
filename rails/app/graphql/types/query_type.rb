@@ -45,9 +45,18 @@ module Types
       context[:current_user]
     end
 
-    field :posts, [Types::PostType], null: false
-    def posts
-      Post.all
+    field :posts, [Types::PostType], null: false do
+      argument :limit, Int, required: false, default_value: 12
+      argument :offset, Int, required: false, default_value: 0
+    end
+
+    def posts(limit:, offset:)
+      Post.limit(limit).offset(offset)
+    end
+
+    field :total_posts, Int, null: false
+    def total_posts
+      Post.count
     end
 
     field :post_detail, Types::PostType, null: false do
