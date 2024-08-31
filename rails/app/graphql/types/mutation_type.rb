@@ -15,5 +15,6 @@ module Types
     field :post_edit, mutation: Mutations::PostEdit
     field :add_favorite, mutation: Mutations::AddFavorite
     field :remove_favorite, mutation: Mutations::RemoveFavorite
+    field :post_sort, mutation: Mutations::PostSort
   end
 end
