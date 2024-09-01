@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  mount_uploader :image_url, ImageUploader
+
   has_secure_password
 
   before_create :generate_token
