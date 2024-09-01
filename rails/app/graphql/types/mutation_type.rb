@@ -16,6 +16,7 @@ module Types
     field :add_favorite, mutation: Mutations::AddFavorite
     field :remove_favorite, mutation: Mutations::RemoveFavorite
     field :post_sort, mutation: Mutations::PostSort
+    field :mypost_sort, mutation: Mutations::MypostSort
     field :profile_edit, mutation: Mutations::ProfileEdit
   end
 end
