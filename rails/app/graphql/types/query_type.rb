@@ -70,8 +70,11 @@ module Types
       Post.find_by(uid:, user_id: user.id)
     end
 
-    field :my_posts, [Types::PostType], null: false
-    def my_posts
+    field :myposts, [Types::PostType], null: false do
+      argument :limit, Int, required: false, default_value: 12
+      argument :offset, Int, required: false, default_value: 0
+    end
+    def myposts(limit:, offset:)
       user = context[:current_user]
       return [] unless user
 
