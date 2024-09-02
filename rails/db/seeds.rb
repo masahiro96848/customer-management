@@ -1,13 +1,20 @@
 # userを生成
 10.times do |i|
+  name = "サンプルテスト#{i + 1}"
   email = "sample#{"%02d" % (i + 1)}@test.com"
+  bio = Faker::Lorem.paragraph(sentence_count: 5)
+  # ダミー画像をランダムに選択
+  image_filename = ["dummy_man.jpg", "dummy_woman.jpg"].sample
+  image_url = File.open("./app/assets/images/#{image_filename}")
   if User.exists?(email:)
     Rails.logger.debug "Email #{email} は既に存在します。"
   else
     user = User.create!(
-      name: "サンプルテスト#{i + 1}",
+      name:,
       email:,
       password: "password",
+      bio:,
+      image_url:,
     )
     if user.errors.any?
       Rails.logger.debug user.errors.full_messages
@@ -23,7 +30,7 @@ post_ids = []
 30.times do
   title = ["TypeScriptのタイトル", "Ruby on Railsのタイトル", "Node.jsのタイトル"].sample
   body = Faker::Lorem.paragraph(sentence_count: 5)
-  image_url = File.open("./app/assets/images/dummy_image.jpg")
+  image_url = File.open("./app/assets/images/dummy_background.jpg")
   is_published = [1, 2].sample
   uid = SecureRandom.uuid
 
