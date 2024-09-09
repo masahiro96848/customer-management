@@ -70,6 +70,13 @@ module Types
       Post.find_by(uid:, user_id: user.id)
     end
 
+    field :edit_post, Types::PostType, null: true do
+      argument :uid, String, required: true
+    end
+    def edit_post(uid:)
+      Post.find_by(uid:)
+    end
+
     field :myposts, [Types::PostType], null: false do
       argument :limit, Int, required: false, default_value: 12
       argument :offset, Int, required: false, default_value: 0
