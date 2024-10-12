@@ -29,6 +29,8 @@ module Types
 
     def favorited
       current_user = context[:current_user]
+      return false unless current_user
+
       Favorite.exists?(user_id: current_user.id, post_id: object.id)
     end
   end
