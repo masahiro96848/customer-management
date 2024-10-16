@@ -11,6 +11,7 @@ module Mutations
       user = context[:current_user]
       return { user: nil, errors: ["User not authenticated"] } unless user
 
+      image_file = nil
       if image_url
         image_file = decode_base64_image(image_url)
         user.image_url = image_file if image_file.present?
@@ -39,7 +40,7 @@ module Mutations
         File.open(filepath, "wb") do |f|
           f.write(decoded_data)
         end
-        filename
+        File.open(filepath)
       end
   end
 end
