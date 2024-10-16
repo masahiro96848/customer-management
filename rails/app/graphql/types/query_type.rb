@@ -70,6 +70,15 @@ module Types
       Post.find_by(uid:, user_id: user.id)
     end
 
+    field :post_edit, Types::PostType, null: true do
+      argument :uid, String, required: false
+    end
+    def post_edit(uid:)
+      return nil if uid.blank?
+
+      Post.find_by(uid:)
+    end
+
     field :edit_post, Types::PostType, null: true do
       argument :uid, String, required: true
     end
