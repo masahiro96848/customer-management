@@ -75,6 +75,7 @@ module Types
     end
     def post_edit(uid:)
       return nil if uid.blank?
+
       Post.find_by(uid:)
     end
 
