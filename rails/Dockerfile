@@ -3,8 +3,8 @@ RUN apt-get update -qq && apt-get install -y vim
 
 RUN mkdir /myapp
 WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+ADD Gemfile /myapp/Gemfile
+ADD Gemfile.lock /myapp/Gemfile.lock
 
 RUN gem update --system
 RUN bundle update --bundler
